@@ -12,7 +12,7 @@ c SURFACE CARDS
   12 SO   20
   99 RCC  0  -15 0 0  0.1 0 13.23    $tally disk surf
 c END SURFACE CARDS - BLANK LIKE FOLLOWS
-  
+  $mo money mo problems
 c DATA CARDS
   MODE  #
   NPS   1e6
