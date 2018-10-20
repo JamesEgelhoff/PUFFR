@@ -1,5 +1,5 @@
 """
-Library for PUFFR analysis files
+Library for PUFFR analysis functions
 """
 
 import numpy as np
@@ -7,17 +7,20 @@ import matplotlib.pyplot as plt
 import scipy.optimize as opt
 
 #define useful significant physical constants here
-stefbolt = 5.67e-8 #W/m^2 K^4
-c = 3e8 #m/s
+stefbolt = 5.67e-8 #Stefan-Boltzmann constant W/m^2 K^4
+c = 3e8 #speed of light m/s
+g = 9.80665 #standard gravity m/s^2
 
-#define ballpark engine parameters here for use as function defaults
-emis=.8
-A=.1
-mass_flow=.00000001
-c_p=0
-T_products=2000
-I=1000
-v=1e6
+#define ballpark engine parameters here for use as function defaults - can update as our estimates improve
+emis=.8 #emissivity
+A=.1 #engine surface area m^2
+mass_flow=.00000001 #self explanatory kg/s
+c_p=0 #specific heat of fission fragments K/J*kg
+T_products=2000 #temperature of fission fragments K
+I=1000 #power density of core radiation W/M^2
+v=.03 * 3e8 #velocity of fision fragments m/s
+#reaction_rate = ? #fission rate fissions/s
+fuel_frac = .5 #fraction of rocket's mass allocated for fuel
 
 def temp_equilibrium1(emis=emis, A=A, mass_flow=mass_flow, c_p=c_p, T_products=T_products, I=I, v=v):
     
@@ -40,7 +43,7 @@ def temp_equilibrium1(emis=emis, A=A, mass_flow=mass_flow, c_p=c_p, T_products=T
     
     T = T_4**.25
     
-    print('The equilibrium temperature is {0:.3f}'.format(T))
+    return(T)
 
 def thrust1(exhaust_mode, mass_flow=mass_flow, v=v):
     """
@@ -61,4 +64,24 @@ def thrust1(exhaust_mode, mass_flow=mass_flow, v=v):
     else:
         print('exhaust_mode specification error')
     
-    print('The thrust is {0:.3f} Newtons'.format(thrust))
+    return thrust
+
+def deltaV1(v=v, fuel_frac=fuel_frac):
+    """
+    Calculates the rocket's delta V
+    
+    Inputs:
+    v: exhaust velocity m/s
+    fuel_frac: fraction of the mass of the rocket allocated for fuel
+    """
+    
+    return v*fuel_frac
+
+def Isp1(v=v):
+    """
+    Calculates engine ISP
+    
+    Inputs:
+    v: exhaust velocity m/s^2
+    """
+    return v/g
