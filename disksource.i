@@ -20,7 +20,7 @@ c MATERIAL SPECIFICATION
   M1   
      6000.50c   1            $Graphite
   M2   
-     95642.50c	1		    $Am242m
+     95642.70c	1		    $Am242m
   M3   
      26000.50c 1			$iron
 
