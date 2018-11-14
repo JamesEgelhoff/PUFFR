@@ -9,7 +9,7 @@ c=3e8 #speed of light m/s
 
 #calculate things here
 
-T = pfr.temp_equilibrium1()
+T = pfr.temp_equilibrium1(emis=.5)
 print('The engine temperature is {0:.3f} Kelvin'.format(T))
 
 thrust = pfr.thrust1('absorb')
