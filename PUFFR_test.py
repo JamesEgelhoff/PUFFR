@@ -21,4 +21,4 @@ print('The delta V is {0:.3e} meters per second'.format(dV))
 isp = pfr.Isp1()
 print('The ISP is {0:.3e} seconds'.format(isp))
 
-raw_input('Press enter to finish script')
+input('Press enter to finish script')

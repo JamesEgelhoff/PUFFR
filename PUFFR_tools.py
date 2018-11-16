@@ -10,11 +10,14 @@ import scipy.optimize as opt
 stefbolt = 5.67e-8 #Stefan-Boltzmann constant W/m^2 K^4
 c = 3e8 #speed of light m/s
 g = 9.80665 #standard gravity m/s^2
+AmMass = 242 #AMU
+kgPerAmu = 1.6e-27
 
 #define ballpark engine parameters here for use as function defaults - can update as our estimates improve
 emis=.8 #emissivity
 A=.1 #engine surface area m^2
-mass_flow=.00000001 #self explanatory kg/s
+reactionRate = 5.8e17 #fissions / second
+mass_flow= AmMass*kgPerAmu*reactionRate #self explanatory kg/s
 c_p=0 #specific heat of fission fragments K/J*kg
 T_products=2000 #temperature of fission fragments K
 I=1000 #power density of core radiation W/M^2
