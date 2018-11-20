@@ -24,6 +24,10 @@ I=1000 #power density of core radiation W/M^2
 v=.03 * 3e8 #velocity of fision fragments m/s
 #reaction_rate = ? #fission rate fissions/s
 fuel_frac = .5 #fraction of rocket's mass allocated for fuel
+view_factor = .8
+reaction_rate = 6e17 #fissions per second
+energy_per_fission = 180 #MeV
+surf_area = 10 #m^2
 
 def temp_equilibrium1(emis=emis, A=A, mass_flow=mass_flow, c_p=c_p, T_products=T_products, I=I, v=v):
     
@@ -47,6 +51,24 @@ def temp_equilibrium1(emis=emis, A=A, mass_flow=mass_flow, c_p=c_p, T_products=T
     T = T_4**.25
     
     return(T)
+    
+def temp_equilibrium2(F = view_factor, fission_rate=reaction_rate, energy_per_fission = energy_per_fission,
+                      emis=emis, surf_area=surf_area):
+    """
+    Created on Thu Nov 15 19:26:25 2018
+    
+    @author: Joshua
+    
+    Second pass thermal calculations
+    """
+    
+    # convert energy to joules
+    energy_per_fission = energy_per_fission * 1.60218e-13 # Joules
+    
+    # Calculation
+    T = (fission_rate*energy_per_fission*F/(stefbolt*emis*surf_area))**.25
+    
+    return T
 
 def thrust1(exhaust_mode, mass_flow=mass_flow, v=v):
     """
