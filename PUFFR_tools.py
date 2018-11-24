@@ -100,7 +100,7 @@ def deltaV1(v=v, fuel_frac=fuel_frac):
     fuel_frac: fraction of the mass of the rocket allocated for fuel
     """
     
-    return v*fuel_frac
+    return v*np.log(1/fuel_frac)
 
 def Isp1(v=v):
     """
