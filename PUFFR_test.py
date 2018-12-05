@@ -9,7 +9,11 @@ c=3e8 #speed of light m/s
 
 #calculate things here
 
+<<<<<<< Updated upstream
 T = pfr.temp_equilibrium2(fission_rate=3e18)
+=======
+T = pfr.temp_equilibrium2()
+>>>>>>> Stashed changes
 print('The engine temperature is {0:.3f} Kelvin'.format(T))
 
 thrust = pfr.thrust1('absorb')
