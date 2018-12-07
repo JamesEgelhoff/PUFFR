@@ -110,3 +110,16 @@ def Isp1(v=v):
     v: exhaust velocity m/s^2
     """
     return v/g
+
+def thermal_power(rate=reaction_rate, en=energy_per_fission):
+    """
+    Calculates the total power of the engine due to fission
+    
+    Inputs:
+    rate: fissions per second
+    en: energy per fission in MeV
+    """
+    
+    return rate*en*1.60218e-13
+    
+    

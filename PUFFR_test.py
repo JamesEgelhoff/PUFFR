@@ -21,4 +21,7 @@ print('The delta V is {0:.3e} meters per second'.format(dV))
 isp = pfr.Isp1()
 print('The ISP is {0:.3e} seconds'.format(isp))
 
+power = pfr.thermal_power()
+print("Power is {} kilowatts".format(power*1e-3))
+
 input('Press enter to finish script')
