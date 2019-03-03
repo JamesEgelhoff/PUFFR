@@ -24,8 +24,13 @@ I=1000 #power density of core radiation W/M^2
 v=.03 * 3e8 #velocity of fision fragments m/s
 fuel_frac = .5 #fraction of rocket's mass allocated for fuel
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 view_factor = .8
 reaction_rate = 6e17 #fissions per second
+=======
+reaction_rate=6e17#fissions per second
+view_factor = .8
+>>>>>>> Stashed changes
 =======
 reaction_rate=6e17#fissions per second
 view_factor = .8
@@ -57,7 +62,11 @@ def temp_equilibrium1(emis=emis, A=A, mass_flow=mass_flow, c_p=c_p, T_products=T
     return(T)
     
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 def temp_equilibrium2(F = view_factor, fission_rate=reaction_rate, energy_per_fission = energy_per_fission,
+=======
+def temp_equilibrium2(F=view_factor, fission_rate=reaction_rate, energy_per_fission = energy_per_fission,
+>>>>>>> Stashed changes
 =======
 def temp_equilibrium2(F=view_factor, fission_rate=reaction_rate, energy_per_fission = energy_per_fission,
 >>>>>>> Stashed changes
