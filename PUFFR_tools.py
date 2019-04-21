@@ -23,7 +23,6 @@ T_products=2000 #temperature of fission fragments K
 I=1000 #power density of core radiation W/M^2
 v=.03 * 3e8 #velocity of fision fragments m/s
 fuel_frac = .5 #fraction of rocket's mass allocated for fuel
-reaction_rate=6e17#fissions per second
 view_factor = .8
 energy_per_fission = 180 #MeV
 surf_area = 10 #m^2
@@ -51,9 +50,7 @@ def temp_equilibrium1(emis=emis, A=A, mass_flow=mass_flow, c_p=c_p, T_products=T
     
     return(T)
     
-
-def temp_equilibrium2(F=view_factor, fission_rate=reaction_rate, energy_per_fission = energy_per_fission,
-                      emis=emis, surf_area=surf_area):
+def temp_equilibrium2(F=view_factor, fission_rate=reaction_rate, energy_per_fission = energy_per_fission, emis=emis, surf_area=surf_area):
     """
     Created on Thu Nov 15 19:26:25 2018
     
