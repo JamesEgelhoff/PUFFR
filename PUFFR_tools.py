@@ -23,13 +23,8 @@ T_products=2000 #temperature of fission fragments K
 I=1000 #power density of core radiation W/M^2
 v=.03 * 3e8 #velocity of fision fragments m/s
 fuel_frac = .5 #fraction of rocket's mass allocated for fuel
-<<<<<<< Updated upstream
-view_factor = .8
-reaction_rate = 6e17 #fissions per second
-=======
 reaction_rate=6e17#fissions per second
 view_factor = .8
->>>>>>> Stashed changes
 energy_per_fission = 180 #MeV
 surf_area = 10 #m^2
 
@@ -56,11 +51,8 @@ def temp_equilibrium1(emis=emis, A=A, mass_flow=mass_flow, c_p=c_p, T_products=T
     
     return(T)
     
-<<<<<<< Updated upstream
-def temp_equilibrium2(F = view_factor, fission_rate=reaction_rate, energy_per_fission = energy_per_fission,
-=======
+
 def temp_equilibrium2(F=view_factor, fission_rate=reaction_rate, energy_per_fission = energy_per_fission,
->>>>>>> Stashed changes
                       emis=emis, surf_area=surf_area):
     """
     Created on Thu Nov 15 19:26:25 2018
@@ -130,4 +122,50 @@ def thermal_power(rate=reaction_rate, en=energy_per_fission):
     
     return rate*en*1.60218e-13
     
+def radiator_mass(Tlimit, thrust):
+    """
+    Given an upper limit on temperature and a desired thrust, calculates the mass of radiators required
     
+    inputs:
+    Tlimit: max allowable temperature in Kelvin
+    thrust: desired thrust in Newtons (used to calculate fission rate, assuming 3% escape rate)
+    
+    outputs:
+    mass: mass of carbon fiber radiator (see https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20140016906.pdf)
+    """
+    
+    mAm = 4.035e-25 #mass of Americium in kg
+    vEx = 9e6 #.03c exhaust velocity in m/s
+    eff = .03 #escape probability
+    fissionE = 3.204e-11 #energy of fission - 200MeV in Joules
+    
+    #calculate fission rate from thrust = (fissions per second) * impulse per fission * escape rate
+    fission_rate = thrust / (.5 * eff * mAm * vEx)
+    
+    #thermal power = fission rate * energy per fission * efficiency of conversion to heat
+    thermP = fission_rate * fissionE * (1-eff)
+    
+    #calculate power emission due solely to engine
+    hexFaces = 434 #number of exposed hexagons emitting heat
+    vertFaces = 102 #number of vertical surfaces emitting heat
+    rHex = .02 #inner radius of hexagon in meters
+    sHex = np.sqrt(4/3) * rHex #side length of hexagon
+    height = .7 #height of engine in m
+    hexArea = 2 * np.sqrt(3) * rHex**2 #area of hexagon
+    vertArea = sHex*height #surface area of vertical surfaces
+    engSurfArea = hexArea * hexFaces + vertArea * vertFaces #total surface area of engine
+    
+    engEmis = .95 #assume high emissivity coating on engine
+    engPowerEmission = engSurfArea * engEmis * stefbolt * Tlimit**4 #power emitted by engine without radiators
+    
+    #the power that must be radiated is the difference between the thermal power produced by the engine
+    #and the thermal power its surfaces radiate
+    #Power emitted by radiators = Power produced by engine - power radiated by engine
+    radP = thermP - engPowerEmission
+    
+    #calculate radiator area from Stefan-Boltzmann
+    emis = .8 #carbon fiber emissivity
+    radArea = radP / (emis * stefbolt * Tlimit**4)
+    radMass = 2*radArea #assume 2kg per square meter for carbon fiber radiator
+    
+    print(radMass)
