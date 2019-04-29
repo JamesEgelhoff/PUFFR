@@ -50,7 +50,7 @@ def temp_equilibrium1(emis=emis, A=A, mass_flow=mass_flow, c_p=c_p, T_products=T
     
     return(T)
     
-def temp_equilibrium2(F=view_factor, fission_rate=reaction_rate, energy_per_fission = energy_per_fission, emis=emis, surf_area=surf_area):
+def temp_equilibrium2(F=view_factor, fission_rate=reactionRate, energy_per_fission = energy_per_fission, emis=emis, surf_area=surf_area):
     """
     Created on Thu Nov 15 19:26:25 2018
     
@@ -108,7 +108,7 @@ def Isp1(v=v):
     """
     return v/g
 
-def thermal_power(rate=reaction_rate, en=energy_per_fission):
+def thermal_power(rate=reactionRate, en=energy_per_fission):
     """
     Calculates the total power of the engine due to fission
     
@@ -119,13 +119,14 @@ def thermal_power(rate=reaction_rate, en=energy_per_fission):
     
     return rate*en*1.60218e-13
     
-def radiator_mass(Tlimit, thrust):
+def radiatorEngine_mass(Tlimit, thrust, eff):
     """
     Given an upper limit on temperature and a desired thrust, calculates the mass of radiators required
     
     inputs:
     Tlimit: max allowable temperature in Kelvin
     thrust: desired thrust in Newtons (used to calculate fission rate, assuming 3% escape rate)
+    eff: fission escape probability (in the range 0 to 1)
     
     outputs:
     mass: mass of carbon fiber radiator (see https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20140016906.pdf)
@@ -133,7 +134,6 @@ def radiator_mass(Tlimit, thrust):
     
     mAm = 4.035e-25 #mass of Americium in kg
     vEx = 9e6 #.03c exhaust velocity in m/s
-    eff = .03 #escape probability
     fissionE = 3.204e-11 #energy of fission - 200MeV in Joules
     
     #calculate fission rate from thrust = (fissions per second) * impulse per fission * escape rate
@@ -164,5 +164,7 @@ def radiator_mass(Tlimit, thrust):
     emis = .8 #carbon fiber emissivity
     radArea = radP / (emis * stefbolt * Tlimit**4)
     radMass = 2*radArea #assume 2kg per square meter for carbon fiber radiator
+    engineMass = 439
+    totalMass = radMass + engineMass
     
-    print(radMass)
+    return totalMass
